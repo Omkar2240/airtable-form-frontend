@@ -295,32 +295,32 @@ export default function Builder() {
                       </Select>
 
                       {q.conditionalRules && (
-                        <div className="flex gap-3 mt-1">
+                        <div className="flex flex-col gap-3 mt-1">
                           <Select
-                            value={q.conditionalRules.conditions[0].operator}
-                            onChange={(e) => {
-                              const next = { ...(q.conditionalRules || {}) } as ConditionalRules;
-                              next.conditions = next.conditions ?? [{ questionKey: '', operator: 'equals', value: '' }];
-                              next.conditions[0].operator = e.target.value as any;
-                              updateQuestion(idx, { conditionalRules: next });
-                            }}
-                            className="px-3 py-2 bg-neutral-800 text-white border-neutral-700"
+                          value={q.conditionalRules.conditions[0].operator}
+                          onChange={(e) => {
+                            const next = { ...(q.conditionalRules || {}) } as ConditionalRules;
+                            next.conditions = next.conditions ?? [{ questionKey: '', operator: 'equals', value: '' }];
+                            next.conditions[0].operator = e.target.value as any;
+                            updateQuestion(idx, { conditionalRules: next });
+                          }}
+                          className="px-3 py-2 bg-neutral-800 text-white border-neutral-700"
                           >
-                            <option value="equals">equals</option>
-                            <option value="notEquals">not equals</option>
-                            <option value="contains">contains</option>
+                          <option value="equals">equals</option>
+                          <option value="notEquals">not equals</option>
+                          <option value="contains">contains</option>
                           </Select>
 
                           <Input
-                            value={q.conditionalRules.conditions[0].value}
-                            onChange={(e) => {
-                              const next = { ...(q.conditionalRules || {}) } as ConditionalRules;
-                              next.conditions = next.conditions ?? [{ questionKey: '', operator: 'equals', value: '' }];
-                              next.conditions[0].value = e.target.value;
-                              updateQuestion(idx, { conditionalRules: next });
-                            }}
-                            placeholder="value"
-                            className="flex-1 bg-neutral-800 text-white placeholder-neutral-400 border-neutral-700"
+                          value={q.conditionalRules.conditions[0].value}
+                          onChange={(e) => {
+                            const next = { ...(q.conditionalRules || {}) } as ConditionalRules;
+                            next.conditions = next.conditions ?? [{ questionKey: '', operator: 'equals', value: '' }];
+                            next.conditions[0].value = e.target.value;
+                            updateQuestion(idx, { conditionalRules: next });
+                          }}
+                          placeholder="value"
+                          className="bg-neutral-800 text-white placeholder-neutral-400 border-neutral-700"
                           />
                         </div>
                       )}
