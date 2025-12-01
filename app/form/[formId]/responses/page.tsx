@@ -5,17 +5,25 @@ import { useParams } from 'next/navigation';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
+interface ResponseItem {
+  _id: string;
+  airtableRecordId?: string;
+  createdAt?: string;
+  deletedInAirtable?: boolean;
+  answers?: Record<string, any>;
+}
+
 export default function ResponsesList() {
   const { formId } = useParams();
-  const [responses, setResponses] = useState([]);
+  const [responses, setResponses] = useState<ResponseItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (formId) {
       fetch(`${API_URL}/api/forms/${formId}/responses`)
         .then(res => res.json())
-        .then(data => {
-          setResponses(data);
+        .then((data: ResponseItem[]) => {
+          setResponses(data ?? []);
           setLoading(false);
         })
         .catch(err => {
@@ -61,7 +69,7 @@ export default function ResponsesList() {
                         {resp.airtableRecordId}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(resp.createdAt).toLocaleString()}
+                        {resp.createdAt ? new Date(resp.createdAt).toLocaleString() : '—'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {resp.deletedInAirtable ? (
